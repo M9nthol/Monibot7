@@ -51,7 +51,8 @@ def handle_callback_query_auction(call):
             button_art = types.InlineKeyboardButton(text="Артефакты", callback_data="art")
             button_obv = types.InlineKeyboardButton(text="Обвесы", callback_data="obv")
             button_prem = types.InlineKeyboardButton(text="Премиумы", callback_data="prem")
-            markup.add(button_armor, button_weapon, button_cont, button_ddt, button_art, button_obv, button_prem)
+            button_zap = types.InlineKeyboardButton(text="Заточка", callback_data="zap")
+            markup.add(button_armor, button_weapon, button_cont, button_ddt, button_art, button_obv, button_prem, button_zap)
 
 
             bot.edit_message_text(chat_id=chat_id, message_id=call.message.message_id,
@@ -132,8 +133,12 @@ def handle_callback_query_obv(call):
     button_a70 = types.InlineKeyboardButton(text="Прицел коллиматорный DM", callback_data="a70")
     button_a79 = types.InlineKeyboardButton(text="Прицел оптический Sig Sauer", callback_data="a79")
     button_a80 = types.InlineKeyboardButton(text="Прицел коллиматорный Barska", callback_data="a80")
+    button_a97 = types.InlineKeyboardButton(text="Антитеза", callback_data="a97")
+    button_a98 = types.InlineKeyboardButton(text="Дистония", callback_data="a98")
+    button_a99 = types.InlineKeyboardButton(text="Трапеция", callback_data="a99")
+    button_a100 = types.InlineKeyboardButton(text="Барабанный магазин АА-12", callback_data="a100")
 
-    markup.add(button_a67, button_a66, button_a68, button_a69, button_a70, button_a79, button_a80)
+    markup.add(button_a67, button_a66, button_a68, button_a69, button_a70, button_a79, button_a80, button_a97, button_a98, button_a99, button_a100)
     bot.edit_message_text(chat_id=chat_id, message_id=call.message.message_id, text="Хорошо! Выбери обвес:",
                           reply_markup=markup)
 
@@ -259,10 +264,12 @@ def handle_callback_query_weapon_master_weapon(call):
     button_a38 = types.InlineKeyboardButton(text="LR-300", callback_data="a37")
     button_a90 = types.InlineKeyboardButton(text="СВЧ", callback_data="a90")
     button_a91 = types.InlineKeyboardButton(text="QBU-191", callback_data="a91")
+    button_a101 = types.InlineKeyboardButton(text="HK MP7A2", callback_data="a101")
+    button_a102 = types.InlineKeyboardButton(text="Derya MK12", callback_data="a102")
     button_back = types.InlineKeyboardButton(text="Назад⬇️", callback_data="back")
 
     markup.add(button_a23, button_a24, button_a25, button_a26, button_a27, button_a28, button_a29, button_a30,
-               button_a38, button_a71, button_a72, button_a73, button_a74, button_a90, button_a91, button_back)
+               button_a38, button_a71, button_a72, button_a73, button_a74, button_a90, button_a91,button_a101, button_a102, button_back)
     bot.edit_message_text(chat_id=chat_id, message_id=call.message.message_id, text="Хорошо! Выбери оружие:",
                           reply_markup=markup)
 
@@ -309,7 +316,7 @@ def handle_callback_query_cont(call):
     func=lambda call: call.data in ["a1", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14",
                                     "a15", "a16", "a17", "a18", "a19", "a20", "a21", "a22", "a23", "a24", "a25", "a26",
                                     "a27", "a28", "a29", "a30", "a31", "a32", "a33", "a34", "a35", "a36", "a37", "a66", "a67", "a68", "a69", "a70", "a71", "a72", "a73", "a74", "a75", "a76", "a77", "a78", "a79", "a80", "a82", "a83", "a84", "a85",
-                                    "a86", "a87", "a88", "a89", "a90", "a91", "a92", "a93", "a94", "a95", "a96"])
+                                    "a86", "a87", "a88", "a89", "a90", "a91", "a92", "a93", "a94", "a95", "a96", "a97", "a98", "a99", "a100", "a101", "a102"])
 def handle_callback_query_item(call):
     chat_id = call.message.chat.id
     item_id = {
@@ -378,7 +385,15 @@ def handle_callback_query_item(call):
         "a92": ("qjqw9"),
         "a93": ("l0og1"),
         "a94": ("4q7pl"),
-        "a96": ("96z7y")
+        "a96": ("96z7y"),
+        "a97": ("m0gqr"),
+        "a98": ("3g7k5"),
+        "a99": ("y3pdo"),
+        "a100": ("qjwv3"),
+        "a101": ("lylnq"),
+        "a102": ("p63w4"),
+
+
 
 
 
@@ -519,10 +534,26 @@ def handle_callback_query_art(call):
     button_term = types.InlineKeyboardButton(text="Термические🔥", callback_data="term")
     button_grav = types.InlineKeyboardButton(text="Гравитационные🌌", callback_data="grav")
     button_bio = types.InlineKeyboardButton(text="Биохимические☣️", callback_data="bio")
+    button_per = types.InlineKeyboardButton(text="Атака периметра", callback_data="per")
     button_back = types.InlineKeyboardButton(text="Назад⬇️", callback_data="back")
-    markup.add(button_elc, button_term, button_grav, button_bio, button_back)
+    markup.add(button_elc, button_term, button_grav, button_bio, button_per, button_back)
     bot.edit_message_text(chat_id=chat_id, message_id=call.message.message_id,
                           text="Хорошо! Теперь выберете тип артефакта:", reply_markup=markup)
+
+@bot.callback_query_handler(func=lambda call: call.data == "per")
+def handle_callback_query_bio(call):
+    chat_id = call.message.chat.id
+    # Создаем новую инлайн-клавиатуру с рангами брони
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    button_a104 = types.InlineKeyboardButton(text="Смольник", callback_data="a104")
+    button_a105 = types.InlineKeyboardButton(text="Обруч", callback_data="a105")
+    button_a106 = types.InlineKeyboardButton(text="Канифоль", callback_data="a106")
+    button_a107 = types.InlineKeyboardButton(text="Нервяк", callback_data="a107")
+    button_a108 = types.InlineKeyboardButton(text="Жабры", callback_data="a108")
+    button_back = types.InlineKeyboardButton(text="Назад⬇️", callback_data="back")
+    markup.add(button_a104, button_a105, button_a106, button_a107, button_a108, button_back)
+    bot.edit_message_text(chat_id=chat_id, message_id=call.message.message_id,
+                          text="Хорошо! Теперь выберете  артефакт:", reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: call.data == "bio")
 def handle_callback_query_bio(call):
@@ -569,8 +600,9 @@ def handle_callback_query_term(call):
     button_k = types.InlineKeyboardButton(text="Каблук", callback_data="a50")
     button_f = types.InlineKeyboardButton(text="Фаренгейт", callback_data="a51")
     button_vi = types.InlineKeyboardButton(text="Вихрь", callback_data="a52")
+    button_morz = types.InlineKeyboardButton(text="Морозец", callback_data="a103")
     button_back = types.InlineKeyboardButton(text="Назад⬇️", callback_data="back")
-    markup.add(button_pt, button_r, button_s, button_v, button_k, button_f, button_vi, button_back)
+    markup.add(button_pt, button_r, button_s, button_v, button_k, button_f, button_vi,button_morz, button_back)
     bot.edit_message_text(chat_id=chat_id, message_id=call.message.message_id,
                           text="Хорошо! Теперь выберете  артефакт:", reply_markup=markup)
 
@@ -595,7 +627,7 @@ def handle_callback_query_elc(call):
 
 
 @bot.callback_query_handler(
-    func=lambda call: call.data in ["a38", "a39", "a41", "a42", "a43", "a44", "a45", "a46", "a47", "a48", "a49", "a50", "a51", "a52", "a53", "a54", "a55", "a56", "a57", "a58", "a59", "60", "a61", "a62", "a63", "a64", "a65"])
+    func=lambda call: call.data in ["a38", "a39", "a41", "a42", "a43", "a44", "a45", "a46", "a47", "a48", "a49", "a50", "a51", "a52", "a53", "a54", "a55", "a56", "a57", "a58", "a59", "60", "a61", "a62", "a63", "a64", "a65", "a103", "a104", "a105", "a106", "a107", "a108"])
 def handle_callback_query_item_art(call):
     chat_id = call.message.chat.id
     item_id = {
@@ -625,7 +657,15 @@ def handle_callback_query_item_art(call):
         "a62": LocalItem("Стальной колобок"),
         "a63": LocalItem("Морской еж"),
         "a64": LocalItem("Многогранник"),
-        "a65": LocalItem("Колобок")
+        "a65": LocalItem("Колобок"),
+        "a103": ("ljn2"),
+        "a104": ("j3p6"),
+        "a105": ("k3yv"),
+        "a106": ("w4no"),
+        "a107": ("49zn"),
+        "a108": ("q1lk")
+
+
 
 
 
